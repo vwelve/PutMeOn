@@ -1,7 +1,6 @@
 import { Strategy } from 'passport-spotify';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import axios, { AxiosResponse } from 'axios';
 import config from 'src/util/config';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/schemas/user.schema';
