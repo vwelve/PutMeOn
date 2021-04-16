@@ -17,15 +17,15 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  async findOne(id: string): Promise<User> {
-    return await this.userModel.findOne((user: User) => user.id == id).exec();
+  async findOne(_id: string): Promise<User> {
+    return await this.userModel.findOne({ _id }).exec();
   }
   
-  async findOrCreateOne(createUserDto: CreateUserDto): Promise<User> {
-    const user = await this.userModel.findOne((user: User) => user.id == createUserDto.id).exec();
+  async findOrCreateOne(userDto: CreateUserDto): Promise<User> {
+    const user = await this.userModel.findOne({ _id: userDto._id }).exec();
 
     if (!user) {
-      const createdUser = new this.userModel(createUserDto);
+      const createdUser = new this.userModel(userDto);
       return createdUser.save();
     }
     return user;

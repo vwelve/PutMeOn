@@ -5,19 +5,11 @@ export type UserDocument = User & Document;
 
 @Schema()
 export class User {
+    @Prop({ _id: true })
+    _id: string;
+
     @Prop()
     display_name: string;
-
-    @Prop(raw({
-        spotify: { type: String }
-    }))
-    external_urls: Record<string, string>;
-
-    @Prop()
-    href: string;
-
-    @Prop()
-    id: string;
 
     @Prop(raw({
         height: { type: Number, required: false  },
@@ -26,11 +18,10 @@ export class User {
     }))
     images: Record<string, string | number>[];
 
-    @Prop()
-    type: string;
-
-    @Prop()
-    uri: string;
+    @Prop(raw({
+        spotify: { type: String, required: true }
+    }))
+    external_urls: Record<string, string>;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(User);

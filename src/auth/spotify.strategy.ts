@@ -1,7 +1,7 @@
 import { Strategy } from 'passport-spotify';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import config from 'src/util/config';
+import config from 'src/config/config';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/schemas/user.schema';
 import { AuthService } from './auth.service';
@@ -24,8 +24,7 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
   }
 
   async validate(_accessToken: string, _refreshToken: string, profile: any): Promise<User> {
-    let user: CreateUserDto = profile["_json"];
-
-    return user;
+    const { id: _id, display_name, images, external_urls  } = profile["_json"];
+    return this.authService.validateUser({ _id, display_name, images, external_urls });
   }
 }

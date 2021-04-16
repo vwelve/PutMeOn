@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 export class AuthService {
   constructor(private usersService: UsersService) {}
 
-  async validateUser(createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.findOrCreateOne(createUserDto);
+  async validateUser(userDto: CreateUserDto): Promise<User> {
+    return this.usersService.findOrCreateOne(userDto);
   }
 }
