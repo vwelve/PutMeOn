@@ -2,7 +2,6 @@ import { Strategy } from 'passport-spotify';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 import config from 'src/config/config';
-import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from 'src/users/schemas/user.schema';
 import { AuthService } from './auth.service';
 import { v4 } from 'uuid';
