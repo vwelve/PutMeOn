@@ -22,12 +22,12 @@ export class UsersService {
   }
   
   async findOrCreateOne(userDto: CreateUserDto): Promise<User> {
-    const user = await this.userModel.findOne({ _id: userDto._id }).exec();
+    const user = await this.userModel.findOneAndUpdate({ _id: userDto._id }, { $setOnInsert: userDto }, { upsert: true, new: true }).exec();
 
-    if (!user) {
-      const createdUser = new this.userModel(userDto);
-      return createdUser.save();
-    }
     return user;
+  }
+
+  async updateAccessToken(_id: string, accessToken: string): Promise<void> {
+    await this.userModel.findByIdAndUpdate(_id, { accessToken });
   }
 }

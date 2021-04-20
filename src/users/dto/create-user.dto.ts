@@ -1,10 +1,9 @@
 export class CreateUserDto {
     readonly _id: string;
-    readonly display_name: string;
-    readonly external_urls: { spotify: string; };
-    readonly images: { 
-        height: null | number;
-        url: string;
-        width: null | number;
-    }[];
+    readonly profileHref: string;
+    readonly accessToken: string;
+    readonly refreshToken: string;
+    readonly expiresIn?: number;
+    readonly createdAt?: Date;
+    readonly updatedAt?: Date;
 }

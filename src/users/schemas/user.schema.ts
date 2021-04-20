@@ -3,25 +3,28 @@ import { Document } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
     @Prop({ _id: true })
-    _id: string;
+    readonly _id: string;
 
     @Prop()
-    display_name: string;
+    readonly profileHref: string;
 
-    @Prop(raw({
-        height: { type: Number, required: false  },
-        url: { type: String },
-        width: { type: Number, required: false  }
-    }))
-    images: Record<string, string | number>[];
+    @Prop()
+    accessToken: string;
 
-    @Prop(raw({
-        spotify: { type: String, required: true }
-    }))
-    external_urls: Record<string, string>;
+    @Prop()
+    refreshToken: string;
+
+    @Prop({ default: 3600 })
+    expiresIn: number;
+
+    @Prop()
+    readonly createdAt: Date
+
+    @Prop()
+    readonly updatedAt: Date
 }
 
 export const UsersSchema = SchemaFactory.createForClass(User);
