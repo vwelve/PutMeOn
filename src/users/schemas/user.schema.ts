@@ -5,8 +5,9 @@ export type UserDocument = User & Document;
 
 @Schema({ timestamps: true })
 export class User {
-    @Prop({ _id: true })
-    readonly _id: string;
+
+    @Prop({ unique: true })
+    readonly userId: string;
 
     @Prop()
     readonly profileHref: string;

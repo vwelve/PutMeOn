@@ -25,6 +25,6 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
   async validate(accessToken: string, refreshToken: string, profile: any): Promise<IPayload> {
     const { id: _id, external_urls  } = profile["_json"];
     
-    return this.authService.validateUser({ _id, profileHref: external_urls.spotify, accessToken, refreshToken });;
+    return this.authService.validateUser({ userId: _id, profileHref: external_urls.spotify, accessToken, refreshToken });;
   }
 }

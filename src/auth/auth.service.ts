@@ -16,7 +16,7 @@ export class AuthService {
   async validateUser(userDto: CreateUserDto): Promise<IPayload> {
     const user = await this.usersService.findOrCreateOne(userDto);
     
-    return { _id: user._id, profileHref: user.profileHref };
+    return { _id: user.userId, profileHref: user.profileHref };
   }
 
   async login(payload: IPayload) {
@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   async checkAccessToken(payload: IPayload): Promise<boolean> {
-    const { updatedAt, expiresIn, accessToken, refreshToken: refresh_token } = await this.usersService.findOne(payload._id);
+    const { updatedAt, expiresIn, accessToken, refreshToken: refresh_token } = await this.usersService.findById(payload._id);
 
     if (new Date().getTime() - updatedAt.getTime() > expiresIn) {
       const headers = {

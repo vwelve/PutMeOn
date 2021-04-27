@@ -8,26 +8,22 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<UserDocument> {
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
-  }
-
-  async findOne(_id: string): Promise<User> {
-    return await this.userModel.findOne({ _id }).exec();
+  async findById(userId: string): Promise<UserDocument> {
+    return await this.userModel.findOne({ userId }).exec();
   }
   
-  async findOrCreateOne(userDto: CreateUserDto): Promise<User> {
-    const user = await this.userModel.findOneAndUpdate({ _id: userDto._id }, { $setOnInsert: userDto }, { upsert: true, new: true }).exec();
+  async findOrCreateOne(userDto: CreateUserDto): Promise<UserDocument> {
+    const user = await this.userModel.findOneAndUpdate({ userId: userDto.userId }, { $setOnInsert: userDto }, { upsert: true, new: true }).exec();
 
     return user;
   }
 
-  async updateAccessToken(_id: string, accessToken: string): Promise<void> {
-    await this.userModel.findByIdAndUpdate(_id, { accessToken });
+  async updateAccessToken(userId: string, accessToken: string): Promise<void> {
+    await this.userModel.findOneAndUpdate({ userId }, { accessToken });
   }
 }
