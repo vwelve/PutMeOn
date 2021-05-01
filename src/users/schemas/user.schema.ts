@@ -1,10 +1,13 @@
-import { Prop, raw, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema({ timestamps: true })
+@Schema()
 export class User {
+    @Prop()
+    readonly _id: mongoose.Schema.Types.ObjectId;
 
     @Prop({ unique: true })
     readonly userId: string;
@@ -12,20 +15,8 @@ export class User {
     @Prop()
     readonly profileHref: string;
 
-    @Prop()
-    accessToken: string;
-
-    @Prop()
-    refreshToken: string;
-
-    @Prop({ default: 3600 })
-    expiresIn: number;
-
-    @Prop()
-    readonly createdAt: Date
-
-    @Prop()
-    readonly updatedAt: Date
+    @Prop({ default: null })
+    readonly image: string;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(User);

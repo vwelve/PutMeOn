@@ -1,23 +1,26 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
 import { User } from 'src/users/schemas/user.schema';
 
-export type PostDocument = Post & Document;
+export type AccessTokenDocument = AccessToken & Document;
 
 @Schema({ timestamps: true })
-export class Post {
+export class AccessToken {
     @Prop()
     readonly _id: mongoose.Schema.Types.ObjectId;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    readonly createdBy: User;
+    readonly user: User;
 
     @Prop()
-    theme: string;
+    accessToken: string;
 
     @Prop()
-    playlistId: string;
+    refreshToken: string;
+
+    @Prop({ default: 3600 })
+    readonly expiresIn: number;
 
     @Prop()
     readonly createdAt: Date;
@@ -26,4 +29,4 @@ export class Post {
     readonly updatedAt: Date;
 }
 
-export const PostsSchema = SchemaFactory.createForClass(Post);
+export const AccessTokensSchema = SchemaFactory.createForClass(AccessToken);

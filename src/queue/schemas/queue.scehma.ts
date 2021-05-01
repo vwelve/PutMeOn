@@ -1,23 +1,21 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
+import ISong from 'src/common/interfaces/song.interface';
 import { User } from 'src/users/schemas/user.schema';
 
-export type PostDocument = Post & Document;
+export type QueueDocument = Queue & Document;
 
 @Schema({ timestamps: true })
-export class Post {
+export class Queue {
     @Prop()
     readonly _id: mongoose.Schema.Types.ObjectId;
 
     @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
-    readonly createdBy: User;
+    user: User;
 
     @Prop()
-    theme: string;
-
-    @Prop()
-    playlistId: string;
+    readonly song: ISong;    
 
     @Prop()
     readonly createdAt: Date;
@@ -26,4 +24,4 @@ export class Post {
     readonly updatedAt: Date;
 }
 
-export const PostsSchema = SchemaFactory.createForClass(Post);
+export const QueueSchema = SchemaFactory.createForClass(Queue);
