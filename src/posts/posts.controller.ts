@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
-import { Payload } from 'src/auth/decorators/payload.decorator';
+import { Payload } from 'src/common/decorators/payload.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import IPayload from 'src/auth/interfaces/payload.interface';
+import IPayload from 'src/common/interfaces/payload.interface';
 import { UsersService } from 'src/users/users.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import IPost from './interfaces/posts.interface';

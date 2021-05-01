@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import config from 'src/config/config';
 import { AuthService } from '../auth.service';
 import { v4 } from 'uuid';
-import IPayload from '../interfaces/payload.interface';
+import IPayload from '../../common/interfaces/payload.interface';
 
 @Injectable()
 export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {

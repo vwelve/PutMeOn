@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import IPayload from './interfaces/payload.interface';
+import IPayload from '../common/interfaces/payload.interface';
 import axios from 'axios';
 import config from 'src/config/config';
 
