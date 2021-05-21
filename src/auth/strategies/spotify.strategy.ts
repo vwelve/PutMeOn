@@ -22,18 +22,18 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
     });
   }
 
-  async validate(accessToken: string, _, profile: any): Promise<any> {
+  async validate(accessToken: string, _, profile: any): Promise<Payload> {
     const { id: userId, photos,  profileUrl, displayName } = profile;
     const userDto = {
       provider: "spotify",
       userId,
       displayName,
-      image: photos.length ? photos[0] : null,
+      image: photos.length ? photos[0].value : null,
       profileUrl
     };
 
     const { _id } = await this.authService.updateOrCreate(userDto);
     
-    return { accessToken, id: _id.toString() };
+    return { accessToken, id: _id.toString(), userId };
   }
 }
