@@ -1,5 +1,7 @@
 export class CreateUserDto {
+    provider: string;
     userId: string;
-    profileHref: string;
-    image?: string;
+    displayName: string;
+    image: string;
+    profileUrl: string;
 }

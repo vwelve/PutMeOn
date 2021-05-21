@@ -8,16 +8,16 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<UserDocument> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
   }
 
-  async findById(userId: string): Promise<UserDocument> {
+  async findById(userId: string): Promise<User> {
     return await this.userModel.findOne({ userId }).exec();
   }
   
-  async findOrCreateOne(userDto: CreateUserDto): Promise<UserDocument> {
+  async updateOrCreate(userDto: CreateUserDto): Promise<User> {
     const user = await this.userModel.findOneAndUpdate({ userId: userDto.userId }, { $setOnInsert: userDto }, { upsert: true, new: true }).exec();
 
     return user;

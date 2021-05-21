@@ -13,10 +13,13 @@ export class User {
     readonly userId: string;
 
     @Prop()
-    readonly profileHref: string;
+    profileUrl: string;
 
     @Prop({ default: null })
-    readonly image: string;
+    image: string;
+
+    @Prop()
+    displayName: string;
 }
 
 export const UsersSchema = SchemaFactory.createForClass(User);

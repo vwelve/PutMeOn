@@ -16,7 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: IPayload) {
-    if (!await this.authService.checkAccessToken(payload)) {
+    if (!await this.authService.isValidAccessToken(payload.accessToken)) {
         throw new UnauthorizedException();
     }
     
