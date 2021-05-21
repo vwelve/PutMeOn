@@ -1,4 +1,4 @@
-export default interface IPayload {
+export default interface Payload {
     userId: string;
     accessToken: string;
 }

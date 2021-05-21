@@ -1,9 +1,9 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import IPayload from '../interfaces/payload.interface';
+import Payload from '../classes/payload';
 
-export const Payload = createParamDecorator(
+export const GetPayload = createParamDecorator(
   (_data: unknown, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();
-    return <IPayload>request.user;
+    return <Payload>request.user;
   },
 );

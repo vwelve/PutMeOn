@@ -1,8 +1,8 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { Payload } from '../common/decorators/payload.decorator';
+import { GetPayload } from '../common/decorators/payload.decorator';
 import { SpotifyAuthGuard } from './guards/spotify-auth.guard';
-import IPayload from '../common/interfaces/payload.interface';
+import Payload from '../common/classes/payload';
 
 @Controller('auth')
 export class AuthController {
@@ -11,7 +11,7 @@ export class AuthController {
 
     @Get('spotify')
     @UseGuards(SpotifyAuthGuard)
-    async spotify(@Payload() payload: IPayload) {
+    async spotify(@GetPayload() payload: Payload) {
         return this.authService.login(payload);
     }
 }
