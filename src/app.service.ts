@@ -12,9 +12,6 @@ export class AppService {
       }
     });
 
-    console.log(userId);
-    console.log(data.items[0]);
-
     const playlists: Playlist[] = data.items.filter((item: any) => item.owner.id == userId).map((item: any) => (
       {
         image: item.images.length ? item.images[0] : null,
