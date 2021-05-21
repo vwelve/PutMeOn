@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import config from './config/config';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [MongooseModule.forRoot(config.mongodb_cluster, {
@@ -13,5 +14,6 @@ import config from './config/config';
     }
   }), AuthModule, UsersModule],
   providers: [AppService],
+  controllers: [AppController]
 })
 export class AppModule {}
