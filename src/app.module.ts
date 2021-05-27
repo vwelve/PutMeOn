@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import config from './config/config';
 import { AppController } from './app.controller';
 import { PostsModule } from './posts/posts.module';
+import { SuggestionsModule } from './suggestions/suggestions.module';
 
 @Module({
   imports: [MongooseModule.forRoot(config.mongodb_cluster, {
@@ -13,7 +14,7 @@ import { PostsModule } from './posts/posts.module';
       connection.plugin(require('mongoose-autopopulate'));
       return connection;
     }
-  }), AuthModule, UsersModule, PostsModule],
+  }), AuthModule, UsersModule, PostsModule, SuggestionsModule],
   providers: [AppService],
   controllers: [AppController]
 })

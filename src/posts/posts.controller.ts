@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import Payload from 'src/common/classes/payload';
 import Playlist from 'src/common/classes/playlist';
@@ -12,7 +12,7 @@ export class PostsController {
 
     @Post()
     @UseGuards(JwtAuthGuard)
-    async create(@GetPayload() payload: Payload, @Body() { theme, playlist }: { theme: string, playlist: Playlist }) {
+    async create(@GetPayload() payload: Payload, @Body('theme') theme: string, @Body('playlist') playlist: Playlist) {
         return this.postsService.create({
             author: payload.id,
             theme,
@@ -20,16 +20,22 @@ export class PostsController {
         });
     }
 
-    @Get()
+    @Get('all')
     @UseGuards(JwtAuthGuard)
-    async list(@GetPayload() payload: Payload) {
+    async findAll(@GetPayload() payload: Payload) {
         const user = await this.usersService.findById(payload.id);
         return this.postsService.findAll(user);
     }
 
     @Delete()
     @UseGuards(JwtAuthGuard)
-    async delete(@GetPayload() payload: Payload, @Body() { postId }: { postId: string }) {
+    async delete(@GetPayload() payload: Payload, @Body('postId') postId: string) {
         return this.postsService.delete(payload.id, postId);
+    }
+
+    @Get()
+    @UseGuards(JwtAuthGuard)
+    async find(@Body('id') postId: string) {
+        return this.postsService.findOne(postId);
     }
 }
