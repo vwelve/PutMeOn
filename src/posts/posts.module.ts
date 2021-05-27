@@ -17,6 +17,7 @@ import { Post, PostsSchema } from './schemas/posts.schema';
         return schema;
       }
     }
-  ]), UsersModule]
+  ]), UsersModule],
+  exports: [PostsService]
 })
 export class PostsModule {}
